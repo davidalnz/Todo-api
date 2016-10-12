@@ -28,7 +28,7 @@ sequelize.sync().then(function(){
 		}else{
 			console.log("todo no found")
 		}
-	});
+	}); 
 	
 
 // Todo.create({
