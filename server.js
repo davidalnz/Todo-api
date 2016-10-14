@@ -172,7 +172,19 @@ app.post("/users", function(req,res){
 	});
 });
 
-db.sequelize.sync().then(function (){
+//POST /users/login
+app.post("/users/login", function (req, res){
+	var body = _.pick(req.body, "email", "password");
+
+	db.user.authenticate(body).the(function(user){
+		res.json(user.toPublicJSON());
+	}, function(){
+		res.status(401).send();
+	});
+	
+});
+
+db.sequelize.sync({force: true}).then(function (){
 	app.listen(PORT, function(){
 	console.log("Express listening at port " + PORT + "!");
 });
